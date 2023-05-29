@@ -2,13 +2,24 @@
 
 declare(strict_types=1);
 
-// phpinfo();
+// spl_autoload_register(function ($class) {
+//     $path = __DIR__ . '/../' . lcfirst(str_replace('\\', '/', $class)) . '.php';
+//     if (file_exists($path)) {
+//         require $path;
+//     }
+// });
 
-/** Classes And Objects */
-require '../PaymentProfile.php';
-require '../Customer.php';
-require '../Transaction.php';
+require __DIR__ . '/../vendor/autoload.php';
 
-$transaction = new Transaction(100, "Description1");
+use App\PaymentGateway\Paddle\{Transaction, CustomerProfile};
+use App\PaymentGateway\Stripe\Transaction as StripeTransaction; // aliasing
 
-echo $transaction->getCustomer()?->getPaymentProfile()?->id ?? "Foo";
+$paddleTransaction = new Transaction();
+$stripeTransaction = new StripeTransaction();
+$customeProfile = new CustomerProfile();
+
+var_dump($paddleTransaction, $stripeTransaction, $customeProfile);
+
+$id = new \Ramsey\Uuid\UuidFactory();
+
+echo $id->uuid4();
