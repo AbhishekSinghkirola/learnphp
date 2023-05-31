@@ -1,19 +1,16 @@
 <?php
 
 declare(strict_types=1);
-
 require __DIR__ . '/../vendor/autoload.php';
 
-use App\Enums\Status;
-use App\PaymentGateway\Paddle\Transaction;
+use App\DB;
+// use App\PaymentGateway\Paddle\Transaction;
 
-$transaction = new Transaction();
-// echo Transaction::STATUS_PAID;
-// echo $transaction::STATUS_DECLINED;
+// $transaction = new Transaction(200, "Transaction 1");
+// var_dump(Transaction::getCount());
 
-echo $transaction::class; // return fully qualified class names
-
-// $transaction->setStaus(Transaction::STATUS_PAID);
-// var_dump($transaction);
-$transaction->setStaus(Status::PAID);
-var_dump($transaction);
+// Singleton Basic Example - no matter how many time we call that insatnce it only created once
+$db = DB::getInstance([]);
+$db = DB::getInstance([]);
+$db = DB::getInstance([]);
+$db = DB::getInstance([]);

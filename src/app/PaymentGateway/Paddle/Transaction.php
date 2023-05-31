@@ -4,30 +4,22 @@ declare(strict_types=1);
 
 namespace App\PaymentGateway\Paddle;
 
-use App\Enums\Status;
-use DateTime;
-use App\Notification\Email;
-use App\PaymentGateway\Paddle\Transaction as PaddleTransaction;
-
 class Transaction
 {
+    private static int $count = 0;
 
-
-    private string $status;
-
-    public function __construct()
+    public function __construct(public float $amount, public string $description)
     {
-        // var_dump(Transaction::STATUS_PENDING);
-        var_dump(Status::PENDING);
-        $this->setStaus(Status::PENDING);
+        self::$count++;
     }
 
-    public function setStaus(string $status): self
+    public static function getCount(): int
     {
-        if (!isset(Status::ALL_STATUSES[$status])) {
-            throw new \InvalidArgumentException('Invalid status');
-        }
-        $this->status = $status;
-        return $this;
+        return self::$count;
+    }
+
+    public function process()
+    {
+        echo "Processing Paddle Transactions...";
     }
 }
