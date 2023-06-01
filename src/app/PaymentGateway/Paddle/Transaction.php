@@ -6,20 +6,34 @@ namespace App\PaymentGateway\Paddle;
 
 class Transaction
 {
-    private static int $count = 0;
+    // Restric the access of these properties directly (NOTE: You can use setter and getter for access these but it is not advisable do not use them until you have a specific need case for that)
+    private float $amount;
 
-    public function __construct(public float $amount, public string $description)
+    public function __construct(float $amount)
     {
-        self::$count++;
+        $this->amount = $amount;
     }
 
-    public static function getCount(): int
+    public function copyFrom(Transaction $transaction): void
     {
-        return self::$count;
+        var_dump($transaction->amount, $transaction->sendEmail());
     }
 
     public function process()
     {
-        echo "Processing Paddle Transactions...";
+        echo "Processing $" . $this->amount . " transaction";
+
+        $this->generateReceipt();
+        $this->sendEmail();
+    }
+
+    // Restric the access of these methods directly
+    private function generateReceipt()
+    {
+    }
+
+    private function sendEmail(): bool
+    {
+        return true;
     }
 }
